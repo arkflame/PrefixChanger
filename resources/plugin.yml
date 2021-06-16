@@ -1,0 +1,7 @@
+name: "PrefixChanger"
+version: 0.0.1
+main: dev._2lstudios.prefixchanger.PrefixChanger
+api-version: 1.13
+commands:
+  prefix:
+    description: "Open the prefix menu"

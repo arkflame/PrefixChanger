@@ -58,6 +58,8 @@ public class PrefixChangerPlaceholder extends PlaceholderExpansion {
                     return prefix.getDisplayName();
                 }
             }
+
+            return "%vault_prefix%";
         }
 
         return null;

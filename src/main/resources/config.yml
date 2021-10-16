@@ -5,7 +5,7 @@ lang: en
 # How the plugin will load/store data.
 provider:
   # Cluster or database server to connect
-  uri: "mongodb://localhost/database-name"
+  uri: "mongodb://localhost/prefixchanger"
   # Cluster or Database server credentials 
   # (Can left empty for Mongo unauthenticated connection)
   username: ""

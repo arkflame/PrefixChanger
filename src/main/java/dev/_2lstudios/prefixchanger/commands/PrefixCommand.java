@@ -46,67 +46,81 @@ public class PrefixCommand implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("change")) {
                     if (args.length > 1) {
                         final String prefixName = args[1].toLowerCase();
-                        final Prefix prefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
 
-                        if (prefix != null) {
-                            final String playerName = player.getName();
-                            final UUID playerUUID = player.getUniqueId();
-                            PrefixPlayer prefixPlayer = prefixPlayerRepository
-                                    .findOne(MapFactory.create("uuid", playerUUID.toString()));
+                        if (player.hasPermission("prefixchanger." + prefixName)) {
+                            final Prefix prefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
 
-                            if (prefixPlayer == null) {
-                                prefixPlayer = prefixPlayerRepository.findOne(MapFactory.create("name", playerName));
+                            if (prefix != null) {
+                                final String playerName = player.getName();
+                                final UUID playerUUID = player.getUniqueId();
+                                PrefixPlayer prefixPlayer = prefixPlayerRepository
+                                        .findOne(MapFactory.create("uuid", playerUUID.toString()));
+
+                                if (prefixPlayer == null) {
+                                    prefixPlayer = prefixPlayerRepository
+                                            .findOne(MapFactory.create("name", playerName));
+                                }
+
+                                if (prefixPlayer == null) {
+                                    prefixPlayer = new PrefixPlayer();
+                                }
+
+                                prefixPlayer.setName(playerName);
+                                prefixPlayer.setUUID(playerUUID);
+                                prefixPlayer.setPrefix(prefixName);
+                                prefixPlayer.save();
+                            } else {
+                                sender.sendMessage("Prefix '" + prefixName + "' doesn't exist!");
                             }
-
-                            if (prefixPlayer == null) {
-                                prefixPlayer = new PrefixPlayer();
-                            }
-
-                            prefixPlayer.setName(playerName);
-                            prefixPlayer.setUUID(playerUUID);
-                            prefixPlayer.setPrefix(prefixName);
-                            prefixPlayer.save();
                         } else {
-                            sender.sendMessage("Prefix '" + prefixName + "' doesn't exist!");
+                            sender.sendMessage("No permission to use prefix '" + prefixName + "'!");
                         }
                     } else {
                         sender.sendMessage("/prefix change <prefix>");
                     }
                 } else if (args[0].equalsIgnoreCase("create")) {
                     if (args.length > 3) {
-                        final String prefixName = args[1].toLowerCase();
-                        final Prefix foundPrefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
+                        if (sender.hasPermission("prefixchanger.create")) {
+                            final String prefixName = args[1].toLowerCase();
+                            final Prefix foundPrefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
 
-                        if (foundPrefix == null) {
-                            final String displayName = args[2];
-                            final List<String> lore = split(args, 3, args.length);
-                            final Prefix prefix = new Prefix();
+                            if (foundPrefix == null) {
+                                final String displayName = args[2];
+                                final List<String> lore = split(args, 3, args.length);
+                                final Prefix prefix = new Prefix();
 
-                            prefix.setName(prefixName);
-                            prefix.setDisplayName(displayName);
-                            prefix.setLore(lore);
-                            prefix.save();
+                                prefix.setName(prefixName);
+                                prefix.setDisplayName(displayName);
+                                prefix.setLore(lore);
+                                prefix.save();
+                            } else {
+                                sender.sendMessage("The prefix '" + prefixName + "' already exists!");
+                            }
                         } else {
-                            sender.sendMessage("The prefix '" + prefixName + "' already exists!");
+                            sender.sendMessage("No permission to edit prefixes!");
                         }
                     } else {
                         sender.sendMessage("/prefix create <name> <displayname> <lore>");
                     }
                 } else if (args[0].equalsIgnoreCase("edit")) {
                     if (args.length > 3) {
-                        final String prefixName = args[1].toLowerCase();
-                        final Prefix foundPrefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
+                        if (sender.hasPermission("prefixchanger.edit")) {
+                            final String prefixName = args[1].toLowerCase();
+                            final Prefix foundPrefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
 
-                        if (foundPrefix != null) {
-                            final String displayName = args[2];
-                            final List<String> lore = split(args, 3, args.length);
+                            if (foundPrefix != null) {
+                                final String displayName = args[2];
+                                final List<String> lore = split(args, 3, args.length);
 
-                            foundPrefix.setName(prefixName);
-                            foundPrefix.setDisplayName(displayName);
-                            foundPrefix.setLore(lore);
-                            foundPrefix.save();
+                                foundPrefix.setName(prefixName);
+                                foundPrefix.setDisplayName(displayName);
+                                foundPrefix.setLore(lore);
+                                foundPrefix.save();
+                            } else {
+                                sender.sendMessage("The prefix '" + prefixName + "' doesn't exist!");
+                            }
                         } else {
-                            sender.sendMessage("The prefix '" + prefixName + "' doesn't exist!");
+                            sender.sendMessage("No permission to edit prefixes!");
                         }
                     } else {
                         sender.sendMessage("/prefix edit <name> <displayname> <lore>");

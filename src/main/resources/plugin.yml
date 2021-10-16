@@ -1,0 +1,11 @@
+name: ${name}
+description: ${description}
+author: ${author}
+main: ${mainClass}
+version: ${version}
+url: ${url}
+depend: [ PlaceholderAPI ]
+commands:
+  prefixchanger:
+    aliases: [ "prefix" ]
+    description: Open the PrefixChanger menu

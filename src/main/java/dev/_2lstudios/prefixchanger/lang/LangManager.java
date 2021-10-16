@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
+import dev._2lstudios.prefixchanger.hooks.PlaceholderAPIHook;
 import dev._2lstudios.prefixchanger.placeholders.Placeholder;
 import dev._2lstudios.prefixchanger.utils.ConfigUtil;
 import dev._2lstudios.prefixchanger.utils.LocaleUtil;
@@ -66,7 +67,7 @@ public class LangManager {
         final Lang lang = getLang(rawLocale);
 
         if (lang != null) {
-            return ChatColor.translateAlternateColorCodes('&', lang.getMessage(key, placeholders));
+            return ChatColor.translateAlternateColorCodes('&', PlaceholderAPIHook.setPlaceholders(sender, lang.getMessage(key, placeholders)));
         } else {
             return ChatColor.translateAlternateColorCodes('&', "&cNo lang files had been found!");
         }

@@ -1,0 +1,15 @@
+# Default language used by the plugin.
+# Language changes according to player's language.
+lang: en
+
+# How the plugin will load/store data.
+provider:
+  # Cluster or database server to connect
+  host: "127.0.0.1"
+  port: 27017
+  # Cluster or Database server credentials 
+  # (Can left empty for Mongo unauthenticated connection)
+  username: ""
+  password: ""
+  # Database which will be used
+  database: "minecraft"

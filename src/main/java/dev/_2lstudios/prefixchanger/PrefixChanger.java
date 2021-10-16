@@ -5,6 +5,7 @@ import com.dotphin.milkshakeorm.MilkshakeORM;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import dev._2lstudios.prefixchanger.commands.PrefixCommand;
 import dev._2lstudios.prefixchanger.entities.Prefix;
 import dev._2lstudios.prefixchanger.entities.PrefixPlayer;
 
@@ -14,5 +15,7 @@ public class PrefixChanger extends JavaPlugin {
         MilkshakeORM.connect(DatabaseType.MONGODB, "mongodb://localhost/database-name");
         MilkshakeORM.addRepository(Prefix.class);
         MilkshakeORM.addRepository(PrefixPlayer.class);
+
+        getCommand("prefixchanger").setExecutor(new PrefixCommand());
     }
 }

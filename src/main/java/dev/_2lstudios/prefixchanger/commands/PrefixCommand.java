@@ -105,6 +105,23 @@ public class PrefixCommand implements CommandExecutor {
                     } else {
                         sender.sendMessage("No permission to list prefixes!");
                     }
+                } else if (args[0].equalsIgnoreCase("delete")) {
+                    if (args.length > 3) {
+                        if (sender.hasPermission("prefixchanger.delete")) {
+                            final String prefixName = args[1].toLowerCase();
+                            final long count = prefixRepository.deleteMany(MapFactory.create("name", prefixName));
+
+                            if (count > 0) {
+                                sender.sendMessage("Deleted " + count + " prefixes!");
+                            } else {
+                                sender.sendMessage("There are no prefixes to delete!");
+                            }
+                        } else {
+                            sender.sendMessage("No permission to delete prefixes!");
+                        }
+                    } else {
+                        sender.sendMessage("/prefix delete <name>");
+                    }
                 } else if (args[0].equalsIgnoreCase("create")) {
                     if (args.length > 3) {
                         if (sender.hasPermission("prefixchanger.create")) {
@@ -124,7 +141,7 @@ public class PrefixCommand implements CommandExecutor {
                                 sender.sendMessage("The prefix '" + prefixName + "' already exists!");
                             }
                         } else {
-                            sender.sendMessage("No permission to edit prefixes!");
+                            sender.sendMessage("No permission to create prefixes!");
                         }
                     } else {
                         sender.sendMessage("/prefix create <name> <displayname> <lore>");

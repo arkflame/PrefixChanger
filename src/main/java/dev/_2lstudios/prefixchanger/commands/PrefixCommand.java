@@ -1,13 +1,16 @@
 package dev._2lstudios.prefixchanger.commands;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.dotphin.milkshakeorm.MilkshakeORM;
 import com.dotphin.milkshakeorm.repository.Repository;
 import com.dotphin.milkshakeorm.utils.MapFactory;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -77,6 +80,30 @@ public class PrefixCommand implements CommandExecutor {
                         }
                     } else {
                         sender.sendMessage("/prefix change <prefix>");
+                    }
+                } else if (args[0].equalsIgnoreCase("list")) {
+                    if (player.hasPermission("prefixchanger.list")) {
+                        final Prefix[] prefixes = prefixRepository.findMany(new HashMap<>());
+
+                        if (prefixes != null && prefixes.length > 0) {
+                            final StringBuilder stringBuilder = new StringBuilder("&aPrefix list:\n");
+
+                            for (final Prefix prefix : prefixes) {
+                                if (!stringBuilder.isEmpty()) {
+                                    stringBuilder.append(" ");
+                                } else {
+                                    stringBuilder.append("&aPrefix list:\n");
+                                }
+
+                                stringBuilder.append(prefix.getDisplayName() + "&7 (&b" + prefix.getName() + "&7) ");
+                            }
+
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringBuilder.toString()));
+                        } else {
+                            sender.sendMessage("There are not prefixes configured!");
+                        }
+                    } else {
+                        sender.sendMessage("No permission to list prefixes!");
                     }
                 } else if (args[0].equalsIgnoreCase("create")) {
                     if (args.length > 3) {

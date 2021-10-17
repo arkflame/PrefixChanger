@@ -2,11 +2,4 @@
 # Language changes according to player's language.
 lang: en
 
-# How the plugin will load/store data.
-provider:
-  # Cluster or database server to connect
-  uri: "mongodb://localhost/prefixchanger"
-  # Cluster or Database server credentials 
-  # (Can left empty for Mongo unauthenticated connection)
-  username: ""
-  password: ""
+database_uri: "mongodb://user:pass@localhost:27017/prefixchanger"

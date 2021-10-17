@@ -31,7 +31,7 @@ public class PrefixChangerPlaceholder extends PlaceholderExpansion {
 
     @Override
     public String getIdentifier() {
-        return "prefix";
+        return "prefixchanger";
     }
 
     @Override

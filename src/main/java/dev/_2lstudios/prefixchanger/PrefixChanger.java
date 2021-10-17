@@ -23,7 +23,7 @@ public class PrefixChanger extends JavaPlugin {
         final Configuration config = configUtil.get("%datafolder%/config.yml");
         final LangManager langManager = new LangManager(configUtil, config.getString("lang"));
 
-        MilkshakeORM.connect(DatabaseType.MONGODB, config.getString("uri"));
+        MilkshakeORM.connect(DatabaseType.MONGODB, config.getString("database_uri"));
         MilkshakeORM.addRepository(Prefix.class);
         MilkshakeORM.addRepository(PrefixPlayer.class);
 

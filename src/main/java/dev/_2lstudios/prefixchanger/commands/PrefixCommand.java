@@ -106,7 +106,7 @@ public class PrefixCommand implements CommandExecutor {
                         sender.sendMessage("No permission to list prefixes!");
                     }
                 } else if (args[0].equalsIgnoreCase("delete")) {
-                    if (args.length > 3) {
+                    if (args.length > 1) {
                         if (sender.hasPermission("prefixchanger.delete")) {
                             final String prefixName = args[1].toLowerCase();
                             final long count = prefixRepository.deleteMany(MapFactory.create("name", prefixName));
@@ -122,6 +122,18 @@ public class PrefixCommand implements CommandExecutor {
                     } else {
                         sender.sendMessage("/prefix delete <name>");
                     }
+                } else if (args[0].equalsIgnoreCase("clear")) {
+                        if (sender.hasPermission("prefixchanger.clear")) {
+                            final long count = prefixRepository.deleteMany(new HashMap<>());
+
+                            if (count > 0) {
+                                sender.sendMessage("Deleted " + count + " prefixes!");
+                            } else {
+                                sender.sendMessage("There are no prefixes to delete!");
+                            }
+                        } else {
+                            sender.sendMessage("No permission to clear prefixes!");
+                        }
                 } else if (args[0].equalsIgnoreCase("create")) {
                     if (args.length > 3) {
                         if (sender.hasPermission("prefixchanger.create")) {
@@ -173,7 +185,7 @@ public class PrefixCommand implements CommandExecutor {
                     sender.sendMessage("/prefix <change/create/edit>");
                 }
             } else {
-                sender.sendMessage("/prefix <change/create/edit>");
+                sender.sendMessage("/prefix <change/create/edit/list/clear/delete>");
             }
         } else {
             sender.sendMessage("Can't use from the console!");

@@ -1,4 +1,4 @@
-package dev._2lstudios.prefixchanger.entities;
+package dev._2lstudios.prefixchanger.prefix.entities;
 
 import java.util.UUID;
 

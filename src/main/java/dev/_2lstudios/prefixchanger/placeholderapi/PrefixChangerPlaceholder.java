@@ -9,8 +9,8 @@ import com.dotphin.milkshakeorm.utils.MapFactory;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
 
-import dev._2lstudios.prefixchanger.entities.Prefix;
-import dev._2lstudios.prefixchanger.entities.PrefixPlayer;
+import dev._2lstudios.prefixchanger.prefix.entities.Prefix;
+import dev._2lstudios.prefixchanger.prefix.entities.PrefixPlayer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 public class PrefixChangerPlaceholder extends PlaceholderExpansion {

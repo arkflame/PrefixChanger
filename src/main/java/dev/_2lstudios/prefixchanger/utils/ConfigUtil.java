@@ -47,7 +47,7 @@ public class ConfigUtil {
 		}
 	}
 
-	public void create(final String rawPath, final String resourcePath) {
+	public ConfigUtil create(final String rawPath, final String resourcePath) {
 		final String path = rawPath.replace(DATA_FOLDER_PLACEHOLDER, dataFolderPath);
 
 		try {
@@ -69,6 +69,8 @@ public class ConfigUtil {
 		} catch (final IOException e) {
 			logger.info(prefix + " Unable to create '" + path + "'!");
 		}
+
+		return this;
 	}
 
 	public void save(final YamlConfiguration configuration, final String rawPath) {

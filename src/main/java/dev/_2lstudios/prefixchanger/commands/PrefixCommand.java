@@ -1,8 +1,5 @@
 package dev._2lstudios.prefixchanger.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,18 +16,6 @@ public class PrefixCommand implements CommandExecutor {
     public PrefixCommand(final PrefixHandler prefixHandler, final PrefixMenuHandler prefixMenuHandler) {
         this.prefixHandler = prefixHandler;
         this.prefixMenuHandler = prefixMenuHandler;
-    }
-
-    private List<String> split(String[] args, int first, int last) {
-        final List<String> split = new ArrayList<>();
-
-        for (int i = first; i < last; i++) {
-            if (i < args.length) {
-                split.add(args[i]);
-            }
-        }
-
-        return split;
     }
 
     @Override
@@ -139,9 +124,9 @@ public class PrefixCommand implements CommandExecutor {
                     if (args.length > 3) {
                         final String prefixName = args[1].toLowerCase();
                         final String displayName = args[2];
-                        final List<String> lore = split(args, 3, args.length);
+                        final String materialName = args[3].toUpperCase();
                         final PrefixHandlerResult prefixHandleResult = prefixHandler.create(player, prefixName,
-                                displayName, lore);
+                                displayName, materialName);
 
                         switch (prefixHandleResult) {
                             case SUCCESS: {
@@ -162,15 +147,15 @@ public class PrefixCommand implements CommandExecutor {
                             }
                         }
                     } else {
-                        sender.sendMessage("/prefix create <name> <displayname> <lore>");
+                        sender.sendMessage("/prefix create <name> <displayname> <material>");
                     }
                 } else if (args[0].equalsIgnoreCase("edit")) {
                     if (args.length > 3) {
                         final String prefixName = args[1].toLowerCase();
                         final String displayName = args[2];
-                        final List<String> lore = split(args, 3, args.length);
+                        final String materialName = args[3].toUpperCase();
                         final PrefixHandlerResult prefixHandleResult = prefixHandler.edit(player, prefixName,
-                                displayName, lore);
+                                displayName, materialName);
 
                         switch (prefixHandleResult) {
                             case SUCCESS: {
@@ -191,7 +176,7 @@ public class PrefixCommand implements CommandExecutor {
                             }
                         }
                     } else {
-                        sender.sendMessage("/prefix edit <name> <displayname> <lore>");
+                        sender.sendMessage("/prefix edit <name> <displayname> <material>");
                     }
                 } else {
                     sender.sendMessage("/prefix <change/create/edit/list/clear/delete>");

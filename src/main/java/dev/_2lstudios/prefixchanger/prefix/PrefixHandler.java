@@ -1,7 +1,6 @@
 package dev._2lstudios.prefixchanger.prefix;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 import com.dotphin.milkshakeorm.MilkshakeORM;
@@ -135,8 +134,7 @@ public class PrefixHandler {
         return PrefixHandlerResult.ERROR;
     }
 
-    public PrefixHandlerResult create(final Player player, final String prefixName, final String displayName,
-            final List<String> lore) {
+    public PrefixHandlerResult create(final Player player, final String prefixName, final String displayName, final String materialName) {
         try {
             if (player.hasPermission("prefixchanger.create")) {
                 final Prefix foundPrefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
@@ -145,8 +143,8 @@ public class PrefixHandler {
                     final Prefix prefix = new Prefix();
 
                     prefix.setName(prefixName);
-                    prefix.setDisplayName(displayName);
-                    prefix.setLore(lore);
+                    prefix.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
+                    prefix.setMaterialName(materialName);
                     prefix.save();
                     return PrefixHandlerResult.SUCCESS;
                 } else {
@@ -162,8 +160,7 @@ public class PrefixHandler {
         return PrefixHandlerResult.ERROR;
     }
 
-    public PrefixHandlerResult edit(final Player player, final String prefixName, final String displayName,
-            final List<String> lore) {
+    public PrefixHandlerResult edit(final Player player, final String prefixName, final String displayName, final String materialName) {
         try {
             if (player.hasPermission("prefixchanger.edit")) {
                 final Prefix foundPrefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
@@ -171,7 +168,7 @@ public class PrefixHandler {
                 if (foundPrefix != null) {
                     foundPrefix.setName(prefixName);
                     foundPrefix.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
-                    foundPrefix.setLore(lore);
+                    foundPrefix.setMaterialName(materialName);
                     foundPrefix.save();
                     return PrefixHandlerResult.SUCCESS;
                 } else {

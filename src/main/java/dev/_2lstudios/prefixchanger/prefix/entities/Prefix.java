@@ -1,7 +1,5 @@
 package dev._2lstudios.prefixchanger.prefix.entities;
 
-import java.util.List;
-
 import com.dotphin.milkshakeorm.entity.Entity;
 import com.dotphin.milkshakeorm.entity.ID;
 import com.dotphin.milkshakeorm.entity.Prop;
@@ -17,7 +15,7 @@ public class Prefix extends Entity {
     public String displayName;
 
     @Prop
-    public List<String> lore;
+    public String materialName;
 
     public String getName() {
         return name;
@@ -35,11 +33,11 @@ public class Prefix extends Entity {
         this.displayName = displayName;
     }
 
-    public List<String> getLore() {
-        return lore;
+    public String getMaterialName() {
+        return materialName;
     }
 
-    public void setLore(final List<String> lore) {
-        this.lore = lore;
+    public void setMaterialName(final String materialName) {
+        this.materialName = materialName;
     }
 }

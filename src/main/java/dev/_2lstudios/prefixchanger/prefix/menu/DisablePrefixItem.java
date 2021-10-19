@@ -30,15 +30,11 @@ public class DisablePrefixItem extends MenuItemClickable {
 
     @Override
     public void click(final Player player) {
-        final String playerName = player.getName();
         final UUID playerUUID = player.getUniqueId();
         final PrefixPlayer prefixPlayer = prefixPlayerRepository.findOne(MapFactory.create("uuid", playerUUID.toString()));
 
         if (prefixPlayer != null) {
-            prefixPlayer.setName(playerName);
-            prefixPlayer.setUUID(playerUUID);
-            prefixPlayer.setPrefix(null);
-            prefixPlayer.save();
+            prefixPlayer.delete();
         }
 
         player.sendMessage("Desactivaste tu prefix completamente!");

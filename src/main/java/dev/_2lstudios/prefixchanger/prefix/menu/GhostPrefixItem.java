@@ -32,14 +32,21 @@ public class GhostPrefixItem extends MenuItemClickable {
     public void click(final Player player) {
         final String playerName = player.getName();
         final UUID playerUUID = player.getUniqueId();
-        final PrefixPlayer prefixPlayer = prefixPlayerRepository.findOne(MapFactory.create("uuid", playerUUID.toString()));
+        PrefixPlayer prefixPlayer = prefixPlayerRepository
+                .findOne(MapFactory.create("uuid", playerUUID.toString()));
 
-        if (prefixPlayer != null) {
-            prefixPlayer.setName(playerName);
-            prefixPlayer.setUUID(playerUUID);
-            prefixPlayer.setPrefix("");
-            prefixPlayer.save();
+        if (prefixPlayer == null) {
+            prefixPlayer = prefixPlayerRepository.findOne(MapFactory.create("name", playerName));
         }
+
+        if (prefixPlayer == null) {
+            prefixPlayer = new PrefixPlayer();
+        }
+
+        prefixPlayer.setName(playerName);
+        prefixPlayer.setUUID(playerUUID);
+        prefixPlayer.setPrefix("");
+        prefixPlayer.save();
 
         player.sendMessage("Activaste el prefix 'fantasma' correctamente!");
     }

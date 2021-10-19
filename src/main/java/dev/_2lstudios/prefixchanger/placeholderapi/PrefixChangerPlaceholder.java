@@ -57,18 +57,18 @@ public class PrefixChangerPlaceholder extends PlaceholderExpansion {
 
                 if (prefixName != null) {
                     if (prefixName.isEmpty()) {
-                        return ChatColor.GRAY.toString();
+                        return ChatColor.GRAY.toString() + " ";
                     } else {
                         final Prefix prefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
 
                         if (prefix != null) {
-                            return prefix.getDisplayName();
+                            return prefix.getDisplayName() + " ";
                         }
                     }
                 }
             }
 
-            return "%vault_prefix%";
+            return "%vault_prefix% ";
         }
 
         return null;

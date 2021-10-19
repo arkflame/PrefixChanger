@@ -132,7 +132,8 @@ public class PrefixHandler {
         return PrefixHandlerResult.ERROR;
     }
 
-    public PrefixHandlerResult create(final Player player, final String prefixName, final String displayName, final String materialName) {
+    public PrefixHandlerResult create(final Player player, final String prefixName, final String displayName,
+            final String materialName, final int data) {
         try {
             if (player.hasPermission("prefixchanger.create")) {
                 final Prefix foundPrefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
@@ -143,6 +144,7 @@ public class PrefixHandler {
                     prefix.setName(prefixName);
                     prefix.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
                     prefix.setMaterialName(materialName);
+                    prefix.setData(data);
                     prefix.save();
                     return PrefixHandlerResult.SUCCESS;
                 } else {
@@ -158,7 +160,8 @@ public class PrefixHandler {
         return PrefixHandlerResult.ERROR;
     }
 
-    public PrefixHandlerResult edit(final Player player, final String prefixName, final String displayName, final String materialName) {
+    public PrefixHandlerResult edit(final Player player, final String prefixName, final String displayName,
+            final String materialName, final int data) {
         try {
             if (player.hasPermission("prefixchanger.edit")) {
                 final Prefix foundPrefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
@@ -167,6 +170,7 @@ public class PrefixHandler {
                     foundPrefix.setName(prefixName);
                     foundPrefix.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
                     foundPrefix.setMaterialName(materialName);
+                    foundPrefix.setData(data);
                     foundPrefix.save();
                     return PrefixHandlerResult.SUCCESS;
                 } else {

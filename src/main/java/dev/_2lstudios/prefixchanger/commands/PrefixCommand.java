@@ -18,6 +18,16 @@ public class PrefixCommand implements CommandExecutor {
         this.prefixMenuHandler = prefixMenuHandler;
     }
 
+    private int getInteger(final String text) {
+        try {
+            return Integer.parseInt(text);
+        } catch (final NumberFormatException e) {
+            // Ignored
+        }
+
+        return 0;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
@@ -30,22 +40,22 @@ public class PrefixCommand implements CommandExecutor {
                         final PrefixHandlerResult prefixHandleResult = prefixHandler.changePrefix(player, prefixName);
 
                         switch (prefixHandleResult) {
-                            case SUCCESS: {
-                                player.sendMessage("Your prefix was changed to '" + prefixName + "'!");
-                                break;
-                            }
-                            case EXISTS: {
-                                player.sendMessage("Prefix '" + prefixName + "' doesn't exist!");
-                                break;
-                            }
-                            case PERMISSION: {
-                                player.sendMessage("No permission to use prefix '" + prefixName + "'!");
-                                break;
-                            }
-                            case ERROR: {
-                                player.sendMessage("Error while trying to change your prefix!");
-                                break;
-                            }
+                        case SUCCESS: {
+                            player.sendMessage("Your prefix was changed to '" + prefixName + "'!");
+                            break;
+                        }
+                        case EXISTS: {
+                            player.sendMessage("Prefix '" + prefixName + "' doesn't exist!");
+                            break;
+                        }
+                        case PERMISSION: {
+                            player.sendMessage("No permission to use prefix '" + prefixName + "'!");
+                            break;
+                        }
+                        case ERROR: {
+                            player.sendMessage("Error while trying to change your prefix!");
+                            break;
+                        }
                         }
                     } else {
                         sender.sendMessage("/prefix change <prefix>");
@@ -54,21 +64,21 @@ public class PrefixCommand implements CommandExecutor {
                     final PrefixHandlerResult prefixHandleResult = prefixHandler.listPrefixes(player);
 
                     switch (prefixHandleResult) {
-                        case SUCCESS: {
-                            break;
-                        }
-                        case EXISTS: {
-                            player.sendMessage("There are no prefixes present!");
-                            break;
-                        }
-                        case PERMISSION: {
-                            player.sendMessage("No permission to use the list command!");
-                            break;
-                        }
-                        case ERROR: {
-                            player.sendMessage("Error while trying to list prefixes!");
-                            break;
-                        }
+                    case SUCCESS: {
+                        break;
+                    }
+                    case EXISTS: {
+                        player.sendMessage("There are no prefixes present!");
+                        break;
+                    }
+                    case PERMISSION: {
+                        player.sendMessage("No permission to use the list command!");
+                        break;
+                    }
+                    case ERROR: {
+                        player.sendMessage("Error while trying to list prefixes!");
+                        break;
+                    }
                     }
                 } else if (args[0].equalsIgnoreCase("open")) {
                     prefixMenuHandler.openMenu(player, 1);
@@ -79,22 +89,22 @@ public class PrefixCommand implements CommandExecutor {
                         final PrefixHandlerResult prefixHandleResult = prefixHandler.delete(player, prefixName);
 
                         switch (prefixHandleResult) {
-                            case SUCCESS: {
-                                player.sendMessage("Deleted the prefix '" + prefixName + "'!");
-                                break;
-                            }
-                            case EXISTS: {
-                                player.sendMessage("There is no prefix with that name!");
-                                break;
-                            }
-                            case PERMISSION: {
-                                player.sendMessage("No permission to use the delete command!");
-                                break;
-                            }
-                            case ERROR: {
-                                player.sendMessage("Error while trying to delete prefix!");
-                                break;
-                            }
+                        case SUCCESS: {
+                            player.sendMessage("Deleted the prefix '" + prefixName + "'!");
+                            break;
+                        }
+                        case EXISTS: {
+                            player.sendMessage("There is no prefix with that name!");
+                            break;
+                        }
+                        case PERMISSION: {
+                            player.sendMessage("No permission to use the delete command!");
+                            break;
+                        }
+                        case ERROR: {
+                            player.sendMessage("Error while trying to delete prefix!");
+                            break;
+                        }
                         }
                     } else {
                         sender.sendMessage("/prefix delete <name>");
@@ -103,77 +113,79 @@ public class PrefixCommand implements CommandExecutor {
                     final PrefixHandlerResult prefixHandleResult = prefixHandler.clear(player);
 
                     switch (prefixHandleResult) {
-                        case SUCCESS: {
-                            player.sendMessage("Successfuly cleared all prefixes!");
-                            break;
-                        }
-                        case EXISTS: {
-                            player.sendMessage("There are no prefixes to clear!");
-                            break;
-                        }
-                        case PERMISSION: {
-                            player.sendMessage("No permission to use the clear command!");
-                            break;
-                        }
-                        case ERROR: {
-                            player.sendMessage("Error while trying to clear prefixes!");
-                            break;
-                        }
+                    case SUCCESS: {
+                        player.sendMessage("Successfuly cleared all prefixes!");
+                        break;
+                    }
+                    case EXISTS: {
+                        player.sendMessage("There are no prefixes to clear!");
+                        break;
+                    }
+                    case PERMISSION: {
+                        player.sendMessage("No permission to use the clear command!");
+                        break;
+                    }
+                    case ERROR: {
+                        player.sendMessage("Error while trying to clear prefixes!");
+                        break;
+                    }
                     }
                 } else if (args[0].equalsIgnoreCase("create")) {
-                    if (args.length > 3) {
+                    if (args.length > 4) {
                         final String prefixName = args[1].toLowerCase();
                         final String displayName = args[2];
                         final String materialName = args[3].toUpperCase();
+                        final int data = getInteger(args[4]);
                         final PrefixHandlerResult prefixHandleResult = prefixHandler.create(player, prefixName,
-                                displayName, materialName);
+                                displayName, materialName, data);
 
                         switch (prefixHandleResult) {
-                            case SUCCESS: {
-                                player.sendMessage("Successfuly created prefix '" + prefixName + "'!");
-                                break;
-                            }
-                            case EXISTS: {
-                                player.sendMessage("The prefix already exists!");
-                                break;
-                            }
-                            case PERMISSION: {
-                                player.sendMessage("No permission to use the create command!");
-                                break;
-                            }
-                            case ERROR: {
-                                player.sendMessage("Error while trying to create prefix!");
-                                break;
-                            }
+                        case SUCCESS: {
+                            player.sendMessage("Successfuly created prefix '" + prefixName + "'!");
+                            break;
+                        }
+                        case EXISTS: {
+                            player.sendMessage("The prefix already exists!");
+                            break;
+                        }
+                        case PERMISSION: {
+                            player.sendMessage("No permission to use the create command!");
+                            break;
+                        }
+                        case ERROR: {
+                            player.sendMessage("Error while trying to create prefix!");
+                            break;
+                        }
                         }
                     } else {
                         sender.sendMessage("/prefix create <name> <displayname> <material>");
                     }
                 } else if (args[0].equalsIgnoreCase("edit")) {
-                    if (args.length > 3) {
+                    if (args.length > 4) {
                         final String prefixName = args[1].toLowerCase();
                         final String displayName = args[2];
                         final String materialName = args[3].toUpperCase();
+                        final int data = getInteger(args[4]);
                         final PrefixHandlerResult prefixHandleResult = prefixHandler.edit(player, prefixName,
-                                displayName, materialName);
+                                displayName, materialName, data);
 
                         switch (prefixHandleResult) {
-                            case SUCCESS: {
-                                player.sendMessage("Successfuly edited prefix '" + prefixName + "'!");
-                                break;
-                            }
-                            case EXISTS: {
-                                player.sendMessage("The prefix doesn't exists!");
-                                break;
-                            }
-                            case PERMISSION: {
-                                player.sendMessage("No permission to use the edit command!");
-                                break;
-                            }
-                            case ERROR: {
-                                player.sendMessage("Error while trying to edit prefix!");
-                                break;
-                            }
+                        case SUCCESS: {
+                            player.sendMessage("Successfuly edited prefix '" + prefixName + "'!");
+                            break;
+                        }
+                        case EXISTS: {
+                            player.sendMessage("The prefix doesn't exists!");
+                            break;
+                        }
+                        case PERMISSION: {
+                            player.sendMessage("No permission to use the edit command!");
+                            break;
+                        }
+                        case ERROR: {
+                            player.sendMessage("Error while trying to edit prefix!");
+                            break;
+                        }
                         }
                     } else {
                         sender.sendMessage("/prefix edit <name> <displayname> <material>");

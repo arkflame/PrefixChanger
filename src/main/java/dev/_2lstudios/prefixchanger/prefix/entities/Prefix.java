@@ -17,6 +17,9 @@ public class Prefix extends Entity {
     @Prop
     public String materialName;
 
+    @Prop
+    public int data;
+
     public String getName() {
         return name;
     }
@@ -39,5 +42,13 @@ public class Prefix extends Entity {
 
     public void setMaterialName(final String materialName) {
         this.materialName = materialName;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public void setData(final int data) {
+        this.data = data;
     }
 }

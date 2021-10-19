@@ -14,7 +14,7 @@ import dev._2lstudios.prefixchanger.prefix.entities.Prefix;
 
 public class PrefixItem extends MenuItemClickable {
     private final static String ITEM_SUFFIX = ChatColor.translateAlternateColorCodes('&', "&7 (%prefix%)");
-    
+
     private final PrefixHandler prefixHandler;
     private final Prefix prefix;
 
@@ -22,8 +22,7 @@ public class PrefixItem extends MenuItemClickable {
         return ITEM_SUFFIX.replace("%prefix%", prefixName);
     }
 
-    public PrefixItem(final int slot, final Prefix prefix,
-            final PrefixHandler prefixHandler) {
+    public PrefixItem(final int slot, final Prefix prefix, final PrefixHandler prefixHandler) {
         super(new ItemStack(Material.FEATHER), slot);
         this.prefix = prefix;
         this.prefixHandler = prefixHandler;
@@ -31,6 +30,7 @@ public class PrefixItem extends MenuItemClickable {
         final ItemStack itemStack = getItemStack();
         final Material prefixMaterial = Material.getMaterial(prefix.getMaterialName());
         final ItemMeta itemMeta = itemStack.getItemMeta();
+        final int data = prefix.getData();
 
         if (prefixMaterial != null) {
             itemStack.setType(prefixMaterial);
@@ -38,6 +38,10 @@ public class PrefixItem extends MenuItemClickable {
 
         itemMeta.setDisplayName(prefix.getDisplayName() + getItemSuffix(prefix.getName()));
         itemStack.setItemMeta(itemMeta);
+
+        if (data >= 0) {
+            itemStack.setDurability((short) data);
+        }
     }
 
     public Prefix getPrefix() {
@@ -50,26 +54,26 @@ public class PrefixItem extends MenuItemClickable {
         final PrefixHandlerResult prefixHandlerResult = prefixHandler.changePrefix(player, prefixName);
 
         switch (prefixHandlerResult) {
-            case SUCCESS: {
-                player.sendMessage("Your prefix was changed to '" + prefixName + "'!");
-                player.playSound(player.getLocation(), Sound.valueOf("EXPERIENCE_PICKUP"), 1f, 0.5f);
-                break;
-            }
-            case EXISTS: {
-                player.sendMessage("Prefix '" + prefixName + "' doesn't exist!");
-                player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
-                break;
-            }
-            case PERMISSION: {
-                player.sendMessage("No permission to use prefix '" + prefixName + "'!");
-                player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
-                break;
-            }
-            case ERROR: {
-                player.sendMessage("Error while trying to change your prefix!");
-                player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
-                break;
-            }
+        case SUCCESS: {
+            player.sendMessage("Your prefix was changed to '" + prefixName + "'!");
+            player.playSound(player.getLocation(), Sound.valueOf("EXPERIENCE_PICKUP"), 1f, 0.5f);
+            break;
+        }
+        case EXISTS: {
+            player.sendMessage("Prefix '" + prefixName + "' doesn't exist!");
+            player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
+            break;
+        }
+        case PERMISSION: {
+            player.sendMessage("No permission to use prefix '" + prefixName + "'!");
+            player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
+            break;
+        }
+        case ERROR: {
+            player.sendMessage("Error while trying to change your prefix!");
+            player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
+            break;
+        }
         }
     }
 }

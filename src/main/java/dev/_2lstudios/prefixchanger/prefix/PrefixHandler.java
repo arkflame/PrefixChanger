@@ -173,11 +173,12 @@ public class PrefixHandler {
                     foundPrefix.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
                     foundPrefix.setLore(lore);
                     foundPrefix.save();
+                    return PrefixHandlerResult.SUCCESS;
                 } else {
-                    player.sendMessage("The prefix '" + prefixName + "' doesn't exist!");
+                    return PrefixHandlerResult.EXISTS;
                 }
             } else {
-                player.sendMessage("No permission to edit prefixes!");
+                return PrefixHandlerResult.PERMISSION;
             }
         } catch (final Exception exception) {
             exception.printStackTrace();

@@ -20,7 +20,7 @@ public class PrefixPageItem extends MenuItemClickable {
         final ItemStack itemStack = getItemStack();
         final ItemMeta itemMeta = itemStack.getItemMeta();
 
-        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&aPagina " + page));
+        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&aPage " + page));
         itemStack.setItemMeta(itemMeta);
     }
 

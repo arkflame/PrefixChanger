@@ -7,6 +7,7 @@ import com.dotphin.milkshakeorm.repository.Repository;
 
 import org.bukkit.entity.Player;
 
+import dev._2lstudios.prefixchanger.menu.MenuItemClose;
 import dev._2lstudios.prefixchanger.menu.MenuManager;
 import dev._2lstudios.prefixchanger.prefix.PrefixHandler;
 import dev._2lstudios.prefixchanger.prefix.entities.Prefix;
@@ -51,6 +52,10 @@ public class PrefixMenuHandler {
         if (page - 1 > 0) {
             prefixMenu.setItem(46, new PrefixPageItem(this, page - 1, 46));
         }
+        
+        prefixMenu.setItem(48, new DisablePrefixItem(48));
+        prefixMenu.setItem(49, new MenuItemClose(49));
+        prefixMenu.setItem(50, new GhostPrefixItem(50));
 
         if (page + 1 <= maxPages) {
             prefixMenu.setItem(52, new PrefixPageItem(this, page + 1, 52));

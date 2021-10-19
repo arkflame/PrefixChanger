@@ -15,12 +15,12 @@ import dev._2lstudios.prefixchanger.prefix.entities.Prefix;
 public class PrefixItem extends MenuItemClickable {
     private final static String ITEM_SUFFIX = ChatColor.translateAlternateColorCodes('&', "&7 (%prefix%)");
 
-    private final PrefixHandler prefixHandler;
-    private final Prefix prefix;
-
-    public String getItemSuffix(final String prefixName) {
+    public static String getItemSuffix(final String prefixName) {
         return ITEM_SUFFIX.replace("%prefix%", prefixName);
     }
+
+    private final PrefixHandler prefixHandler;
+    private final Prefix prefix;
 
     public PrefixItem(final int slot, final Prefix prefix, final PrefixHandler prefixHandler) {
         super(new ItemStack(Material.FEATHER), slot);

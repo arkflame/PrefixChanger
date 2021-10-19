@@ -12,6 +12,7 @@ import org.bukkit.plugin.Plugin;
 import dev._2lstudios.prefixchanger.prefix.entities.Prefix;
 import dev._2lstudios.prefixchanger.prefix.entities.PrefixPlayer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import net.md_5.bungee.api.ChatColor;
 
 public class PrefixChangerPlaceholder extends PlaceholderExpansion {
     private final Plugin plugin;
@@ -52,10 +53,18 @@ public class PrefixChangerPlaceholder extends PlaceholderExpansion {
             }
 
             if (prefixPlayer != null) {
-                final Prefix prefix = prefixRepository.findOne(MapFactory.create("name", prefixPlayer.getPrefix()));
+                final String prefixName = prefixPlayer.getPrefix();
 
-                if (prefix != null) {
-                    return prefix.getDisplayName();
+                if (prefixName != null) {
+                    if (prefixName.isEmpty()) {
+                        return ChatColor.GRAY.toString();
+                    } else {
+                        final Prefix prefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
+
+                        if (prefix != null) {
+                            return prefix.getDisplayName();
+                        }
+                    }
                 }
             }
 

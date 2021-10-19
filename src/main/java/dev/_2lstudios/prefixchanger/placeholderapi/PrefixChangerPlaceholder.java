@@ -68,7 +68,7 @@ public class PrefixChangerPlaceholder extends PlaceholderExpansion {
                 }
             }
 
-            return "%vault_prefix% ";
+            return "%vault_prefix%";
         }
 
         return null;

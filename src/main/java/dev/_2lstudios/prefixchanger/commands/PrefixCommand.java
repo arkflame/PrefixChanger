@@ -158,7 +158,7 @@ public class PrefixCommand implements CommandExecutor {
                         }
                         }
                     } else {
-                        sender.sendMessage("/prefix create <name> <displayname> <material>");
+                        sender.sendMessage("/prefix create <name> <displayname> <material> <data>");
                     }
                 } else if (args[0].equalsIgnoreCase("edit")) {
                     if (args.length > 4) {
@@ -188,7 +188,7 @@ public class PrefixCommand implements CommandExecutor {
                         }
                         }
                     } else {
-                        sender.sendMessage("/prefix edit <name> <displayname> <material>");
+                        sender.sendMessage("/prefix edit <name> <displayname> <material> <data>");
                     }
                 } else {
                     sender.sendMessage("/prefix <change/create/edit/list/clear/delete>");

@@ -170,7 +170,7 @@ public class PrefixHandler {
 
                 if (foundPrefix != null) {
                     foundPrefix.setName(prefixName);
-                    foundPrefix.setDisplayName(displayName);
+                    foundPrefix.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
                     foundPrefix.setLore(lore);
                     foundPrefix.save();
                 } else {

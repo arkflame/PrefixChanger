@@ -194,7 +194,7 @@ public class PrefixCommand implements CommandExecutor {
                         sender.sendMessage("/prefix edit <name> <displayname> <lore>");
                     }
                 } else {
-                    sender.sendMessage("/prefix <change/create/edit>");
+                    sender.sendMessage("/prefix <change/create/edit/list/clear/delete>");
                 }
             } else {
                 sender.sendMessage("/prefix <change/create/edit/list/clear/delete>");

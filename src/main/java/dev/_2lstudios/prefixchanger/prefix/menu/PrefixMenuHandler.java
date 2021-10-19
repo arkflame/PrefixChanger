@@ -5,19 +5,14 @@ import java.util.HashMap;
 import com.dotphin.milkshakeorm.MilkshakeORM;
 import com.dotphin.milkshakeorm.repository.Repository;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import dev._2lstudios.prefixchanger.menu.MenuManager;
 import dev._2lstudios.prefixchanger.prefix.PrefixHandler;
 import dev._2lstudios.prefixchanger.prefix.entities.Prefix;
 
 public class PrefixMenuHandler {
-    private final static int SLOTS = 34;
-    private final static String ITEM_SUFFIX = ChatColor.translateAlternateColorCodes('&', "&7 (%prefix%)");
+    private final static int SLOTS = 28;
     private final MenuManager menuManager;
     private final PrefixHandler prefixHandler;
     private final Repository<Prefix> prefixRepository;
@@ -32,36 +27,35 @@ public class PrefixMenuHandler {
         return 1 + (prefixCount - 1) / SLOTS;
     }
 
-    public String getItemSuffix(final String prefixName) {
-        return ITEM_SUFFIX.replace("%prefix%", prefixName);
-    }
-
     public void openMenu(final Player player, final int page) {
         final Prefix[] prefixes = prefixRepository.findMany(new HashMap<>());
         final int prefixCount = prefixes.length;
         final int maxPages = getMaxPages(prefixCount);
         final PrefixMenu prefixMenu = new PrefixMenu(page, maxPages);
-        int index = Math.min((page - 1) * SLOTS, 0) - 1;
+        int index = Math.max((page - 1) * SLOTS, 0);
 
-        for (int slot = 10; slot < SLOTS + 8; slot++) {
-            if (++index >= prefixCount) {
+        for (int slot = 10; slot <= 43; slot++) {
+            if (index >= prefixCount) {
                 break;
             } else {
-                final Prefix prefix = prefixes[index];
-                final Material prefixMaterial = Material.getMaterial(prefix.getMaterialName());
-                final ItemStack itemStack = new ItemStack(prefixMaterial != null ? prefixMaterial : Material.FEATHER, 1);
-                final ItemMeta itemMeta = itemStack.getItemMeta();
-
-                itemMeta.setDisplayName(prefix.getDisplayName() + getItemSuffix(prefix.getName()));
-                itemStack.setItemMeta(itemMeta);
-                prefixMenu.setItem(slot, new PrefixItem(itemStack, slot, prefix, prefixHandler));
+                prefixMenu.setItem(slot, new PrefixItem(slot, prefixes[index], prefixHandler));
 
                 if ((index + 1) % 7 == 0) {
                     slot += 2;
                 }
             }
+
+            index++;
         }
 
+        if (page - 1 > 0) {
+            prefixMenu.setItem(46, new PrefixPageItem(this, page - 1, 46));
+        }
+
+        if (page + 1 <= maxPages) {
+            prefixMenu.setItem(52, new PrefixPageItem(this, page + 1, 52));
+        }
+        
         menuManager.add(prefixMenu);
         player.openInventory(prefixMenu.getInventory());
     }

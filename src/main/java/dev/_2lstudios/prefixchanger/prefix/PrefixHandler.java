@@ -80,11 +80,9 @@ public class PrefixHandler {
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringBuilder.toString()));
                     return PrefixHandlerResult.SUCCESS;
                 } else {
-                    player.sendMessage("There are not prefixes configured!");
                     return PrefixHandlerResult.EXISTS;
                 }
             } else {
-                player.sendMessage("No permission to list prefixes!");
                 return PrefixHandlerResult.PERMISSION;
             }
         } catch (final Exception exception) {

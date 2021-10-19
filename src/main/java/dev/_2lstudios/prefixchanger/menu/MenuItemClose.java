@@ -13,7 +13,7 @@ public class MenuItemClose extends MenuItemClickable {
     }
 
     public MenuItemClose(final int slot) {
-        this(new ItemStack(Material.BARRIER, 1), slot);
+        this(new ItemStack(Material.BARRIER), slot);
         
         final ItemStack itemStack = getItemStack();
         final ItemMeta itemMeta = itemStack.getItemMeta();

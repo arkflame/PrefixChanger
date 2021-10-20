@@ -5,20 +5,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class MenuItemClose extends MenuItemClickable {
     public MenuItemClose(final ItemStack itemStack, final int slot) {
         super(itemStack, slot);
     }
 
-    public MenuItemClose(final int slot) {
+    public MenuItemClose(final String displayName, final int slot) {
         this(new ItemStack(Material.BARRIER), slot);
         
         final ItemStack itemStack = getItemStack();
         final ItemMeta itemMeta = itemStack.getItemMeta();
 
-        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&cClose"));
+        itemMeta.setDisplayName(displayName);
+        itemStack.setItemMeta(itemMeta);
     }
 
     @Override

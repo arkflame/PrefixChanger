@@ -1,5 +1,7 @@
 package dev._2lstudios.prefixchanger.prefix.menu;
 
+import java.util.Arrays;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -25,7 +27,7 @@ public class PrefixItem extends MenuItemClickable {
     private final PrefixHandler prefixHandler;
     private final Prefix prefix;
 
-    public PrefixItem(final LangManager langManager, final int slot, final Prefix prefix, final PrefixHandler prefixHandler) {
+    public PrefixItem(final LangManager langManager, final Player player, final int slot, final Prefix prefix, final PrefixHandler prefixHandler) {
         super(new ItemStack(Material.FEATHER), slot);
         this.langManager = langManager;
         this.prefix = prefix;
@@ -41,6 +43,13 @@ public class PrefixItem extends MenuItemClickable {
         }
 
         itemMeta.setDisplayName(prefix.getDisplayName() + getItemSuffix(prefix.getName()));
+
+        if (player.hasPermission("prefixchanger.prefix." + prefix.getName())) {
+            itemMeta.setLore(Arrays.asList(langManager.getMessage(player, "unlocked")));
+        } else {
+            itemMeta.setLore(Arrays.asList(langManager.getMessage(player, "locked")));
+        }
+
         itemStack.setItemMeta(itemMeta);
 
         if (data >= 0) {
@@ -60,7 +69,7 @@ public class PrefixItem extends MenuItemClickable {
         switch (prefixHandlerResult) {
         case SUCCESS: {
             langManager.sendMessage(player, "changed", new Placeholder("%prefix%", prefixName));
-            player.playSound(player.getLocation(), Sound.valueOf("EXPERIENCE_PICKUP"), 1f, 0.5f);
+            player.playSound(player.getLocation(), Sound.valueOf("ORB_PICKUP"), 1f, 0.5f);
             break;
         }
         case EXISTS: {

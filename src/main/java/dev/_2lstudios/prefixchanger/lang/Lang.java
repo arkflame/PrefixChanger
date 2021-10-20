@@ -3,6 +3,7 @@ package dev._2lstudios.prefixchanger.lang;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -29,7 +30,7 @@ public class Lang {
                     fullPath = section.getCurrentPath() + "." + key;
                 }
 
-                messages.put(fullPath, (String) object);
+                messages.put(fullPath, ChatColor.translateAlternateColorCodes('&', (String) object));
             }
         }
     }

@@ -22,3 +22,20 @@ no_prefix: "&cThere is no prefix with the name '%prefix%'!"
 deleted: "&cDeleted the prefix '%prefix%'!"
 edited: "&aSuccessfully edited the prefix '%prefix%'!"
 changed: "&aYour prefix was changed to '%prefix%'!"
+locked: |-
+  &r
+  &7Buy this prefix in our store!
+  &r
+  &cLOCKED
+unlocked: |-
+  &r
+  &7Click to select this prefix!
+  &r
+  &aUNLOCKED
+menu_title: "PrefixChanger - Page (%page%/%max_pages%)"
+item_reset: "&aReset Prefix"
+item_ghost: "&aGhost Prefix"
+item_page: "&aPage %page%"
+item_close: "&cClose"
+reset: "&aYour prefix was reset!"
+ghost: "&aYou activated the 'ghost' prefix!"

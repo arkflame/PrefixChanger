@@ -11,20 +11,23 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import dev._2lstudios.prefixchanger.lang.LangManager;
 import dev._2lstudios.prefixchanger.menu.MenuItemClickable;
 import dev._2lstudios.prefixchanger.prefix.entities.PrefixPlayer;
 
-public class DisablePrefixItem extends MenuItemClickable {
+public class ResetPrefixItem extends MenuItemClickable {
+    private final LangManager langManager;
     private final Repository<PrefixPlayer> prefixPlayerRepository;
 
-    public DisablePrefixItem(final int slot) {
+    public ResetPrefixItem(final LangManager langManager, final String displayName, final int slot) {
         super(new ItemStack(Material.SHEARS), slot);
+        this.langManager = langManager;
         this.prefixPlayerRepository = MilkshakeORM.getRepository(PrefixPlayer.class);
 
         final ItemStack itemStack = getItemStack();
         final ItemMeta itemMeta = itemStack.getItemMeta();
 
-        itemMeta.setDisplayName("Desactivar Prefix");
+        itemMeta.setDisplayName(displayName);
         itemStack.setItemMeta(itemMeta);
     }
 
@@ -37,6 +40,6 @@ public class DisablePrefixItem extends MenuItemClickable {
             prefixPlayer.delete();
         }
 
-        player.sendMessage("Desactivaste tu prefix completamente!");
+        player.sendMessage(langManager.getMessage(player, "reset"));
     }
 }

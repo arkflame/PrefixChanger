@@ -22,3 +22,20 @@ no_prefix: "&cNo existe un prefijo llamado '%prefix%'!"
 deleted: "&cSe elimino el prefijo '%prefix%'!"
 edited: "&aEditaste el prefijo '%prefix%'!"
 changed: "&aTu prefijo fue cambiado a '%prefix%'!"
+locked: |-
+  &r
+  &7Compralo en nuestra web!
+  &r
+  &cBLOQUEADO
+unlocked: |-
+  &r
+  &7Click para seleccionar!
+  &r
+  &aDESBLOQUEADO
+menu_title: "PrefixChanger - Pagina (%page%/%max_pages%)"
+item_reset: "&aReiniciar Prefix"
+item_ghost: "&aPrefix Fantasma"
+item_page: "&aPagina %page%"
+item_close: "&cCerrar"
+reset: "&aTu prefix fue reiniciado!"
+ghost: "&aActivaste el prefix 'fantasma'!"

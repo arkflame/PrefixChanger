@@ -12,7 +12,7 @@ public class PrefixPageItem extends MenuItemClickable {
     private final PrefixMenuHandler prefixMenuHandler;
     private final int page;
 
-    public PrefixPageItem(final PrefixMenuHandler prefixMenuHandler, final int page, final int slot) {
+    public PrefixPageItem(final String displayName, final PrefixMenuHandler prefixMenuHandler, final int page, final int slot) {
         super(new ItemStack(Material.ARROW), slot);
         this.prefixMenuHandler = prefixMenuHandler;
         this.page = page;
@@ -20,7 +20,7 @@ public class PrefixPageItem extends MenuItemClickable {
         final ItemStack itemStack = getItemStack();
         final ItemMeta itemMeta = itemStack.getItemMeta();
 
-        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&aPage " + page));
+        itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
         itemStack.setItemMeta(itemMeta);
     }
 

@@ -7,7 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import dev._2lstudios.prefixchanger.lang.LangManager;
 import dev._2lstudios.prefixchanger.menu.MenuItemClickable;
+import dev._2lstudios.prefixchanger.placeholders.Placeholder;
 import dev._2lstudios.prefixchanger.prefix.PrefixHandler;
 import dev._2lstudios.prefixchanger.prefix.PrefixHandlerResult;
 import dev._2lstudios.prefixchanger.prefix.entities.Prefix;
@@ -19,11 +21,13 @@ public class PrefixItem extends MenuItemClickable {
         return ITEM_SUFFIX.replace("%prefix%", prefixName);
     }
 
+    private final LangManager langManager;
     private final PrefixHandler prefixHandler;
     private final Prefix prefix;
 
-    public PrefixItem(final int slot, final Prefix prefix, final PrefixHandler prefixHandler) {
+    public PrefixItem(final LangManager langManager, final int slot, final Prefix prefix, final PrefixHandler prefixHandler) {
         super(new ItemStack(Material.FEATHER), slot);
+        this.langManager = langManager;
         this.prefix = prefix;
         this.prefixHandler = prefixHandler;
 
@@ -55,22 +59,22 @@ public class PrefixItem extends MenuItemClickable {
 
         switch (prefixHandlerResult) {
         case SUCCESS: {
-            player.sendMessage("Your prefix was changed to '" + prefixName + "'!");
+            langManager.sendMessage(player, "changed", new Placeholder("%prefix%", prefixName));
             player.playSound(player.getLocation(), Sound.valueOf("EXPERIENCE_PICKUP"), 1f, 0.5f);
             break;
         }
         case EXISTS: {
-            player.sendMessage("Prefix '" + prefixName + "' doesn't exist!");
+            langManager.sendMessage(player, "not_existent", new Placeholder("%prefix%", prefixName));
             player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
             break;
         }
         case PERMISSION: {
-            player.sendMessage("No permission to use prefix '" + prefixName + "'!");
+            langManager.sendMessage(player, "permission_prefix");
             player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
             break;
         }
         case ERROR: {
-            player.sendMessage("Error while trying to change your prefix!");
+            langManager.sendMessage(player, "error");
             player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
             break;
         }

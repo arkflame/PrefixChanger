@@ -44,23 +44,23 @@ public class PrefixCommand implements CommandExecutor {
                         final PrefixHandlerResult prefixHandleResult = prefixHandler.delete(player, prefixName);
 
                         switch (prefixHandleResult) {
-                        case SUCCESS: {
-                            langManager.sendMessage(sender, "deleted", new Placeholder("%prefix%", prefixName));
-                            break;
-                        }
-                        case EXISTS: {
-                            player.sendMessage("There is no prefix with that name!");
-                            break;
-                        }
-                        case PERMISSION: {
-                            player.sendMessage("No permission to use the delete command!");
-                            break;
-                        }
-                        case ERROR: {
-                            player.sendMessage("Error while trying to delete prefix!");
-                            break;
-                        }
-                        }
+                            case SUCCESS: {
+                                langManager.sendMessage(sender, "deleted", new Placeholder("%prefix%", prefixName));
+                                break;
+                            }
+                            case EXISTS: {
+                                langManager.sendMessage(sender, "not_existent", new Placeholder("%prefix%", prefixName));
+                                break;
+                            }
+                            case PERMISSION: {
+                                langManager.sendMessage(sender, "permission_error");
+                                break;
+                            }
+                            case ERROR: {
+                                langManager.sendMessage(sender, "error");
+                                break;
+                            }
+                            }
                     } else {
                         langManager.sendMessage(sender, "delete_usage", new Placeholder("%label%", label));
                     }
@@ -68,23 +68,23 @@ public class PrefixCommand implements CommandExecutor {
                     final PrefixHandlerResult prefixHandleResult = prefixHandler.clear(player);
 
                     switch (prefixHandleResult) {
-                    case SUCCESS: {
-                        langManager.sendMessage(sender, "cleared");
-                        break;
-                    }
-                    case EXISTS: {
-                        player.sendMessage("There are no prefixes to clear!");
-                        break;
-                    }
-                    case PERMISSION: {
-                        player.sendMessage("No permission to use the clear command!");
-                        break;
-                    }
-                    case ERROR: {
-                        player.sendMessage("Error while trying to clear prefixes!");
-                        break;
-                    }
-                    }
+                        case SUCCESS: {
+                            langManager.sendMessage(sender, "cleared");
+                            break;
+                        }
+                        case EXISTS: {
+                            langManager.sendMessage(sender, "no_prefixes");
+                            break;
+                        }
+                        case PERMISSION: {
+                            langManager.sendMessage(sender, "permission_error");
+                            break;
+                        }
+                        case ERROR: {
+                            langManager.sendMessage(sender, "error");
+                            break;
+                        }
+                        }
                 } else if (args[0].equalsIgnoreCase("create")) {
                     if (args.length > 4) {
                         final String prefixName = args[1].toLowerCase();
@@ -94,24 +94,24 @@ public class PrefixCommand implements CommandExecutor {
                         final PrefixHandlerResult prefixHandleResult = prefixHandler.create(player, prefixName,
                                 displayName, materialName, data);
 
-                        switch (prefixHandleResult) {
-                        case SUCCESS: {
-                            langManager.sendMessage(sender, "created", new Placeholder("%prefix%", prefixName));
-                            break;
-                        }
-                        case EXISTS: {
-                            player.sendMessage("The prefix already exists!");
-                            break;
-                        }
-                        case PERMISSION: {
-                            player.sendMessage("No permission to use the create command!");
-                            break;
-                        }
-                        case ERROR: {
-                            player.sendMessage("Error while trying to create prefix!");
-                            break;
-                        }
-                        }
+                                switch (prefixHandleResult) {
+                                    case SUCCESS: {
+                                        langManager.sendMessage(sender, "created", new Placeholder("%prefix%", prefixName));
+                                        break;
+                                    }
+                                    case EXISTS: {
+                                        langManager.sendMessage(sender, "already_exists");
+                                        break;
+                                    }
+                                    case PERMISSION: {
+                                        langManager.sendMessage(sender, "permission_error");
+                                        break;
+                                    }
+                                    case ERROR: {
+                                        langManager.sendMessage(sender, "error");
+                                        break;
+                                    }
+                                    }
                     } else {
                         langManager.sendMessage(sender, "create_usage", new Placeholder("%label%", label));
                     }
@@ -130,15 +130,15 @@ public class PrefixCommand implements CommandExecutor {
                             break;
                         }
                         case EXISTS: {
-                            player.sendMessage("The prefix doesn't exists!");
+                            langManager.sendMessage(sender, "not_existent", new Placeholder("%prefix%", prefixName));
                             break;
                         }
                         case PERMISSION: {
-                            player.sendMessage("No permission to use the edit command!");
+                            langManager.sendMessage(sender, "permission_error");
                             break;
                         }
                         case ERROR: {
-                            player.sendMessage("Error while trying to edit prefix!");
+                            langManager.sendMessage(sender, "error");
                             break;
                         }
                         }

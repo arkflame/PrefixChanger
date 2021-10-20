@@ -33,7 +33,7 @@ public class PrefixChanger extends JavaPlugin {
         final LangManager langManager = new LangManager(configUtil, config.getString("lang"));
         final MenuManager menuManager = new MenuManager();
         final PrefixHandler prefixHandler = new PrefixHandler();
-        final PrefixMenuHandler prefixMenuHandler = new PrefixMenuHandler(menuManager, prefixHandler);
+        final PrefixMenuHandler prefixMenuHandler = new PrefixMenuHandler(langManager, menuManager, prefixHandler);
 
         pluginManager.registerEvents(new InventoryClickListener(menuManager), this);
 

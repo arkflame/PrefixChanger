@@ -7,6 +7,7 @@ import com.dotphin.milkshakeorm.repository.Repository;
 
 import org.bukkit.entity.Player;
 
+import dev._2lstudios.prefixchanger.lang.LangManager;
 import dev._2lstudios.prefixchanger.menu.MenuItemClose;
 import dev._2lstudios.prefixchanger.menu.MenuManager;
 import dev._2lstudios.prefixchanger.prefix.PrefixHandler;
@@ -14,11 +15,14 @@ import dev._2lstudios.prefixchanger.prefix.entities.Prefix;
 
 public class PrefixMenuHandler {
     private final static int SLOTS = 28;
+
+    private final LangManager langManager;
     private final MenuManager menuManager;
     private final PrefixHandler prefixHandler;
     private final Repository<Prefix> prefixRepository;
 
-    public PrefixMenuHandler(final MenuManager menuManager, final PrefixHandler prefixHandler) {
+    public PrefixMenuHandler(final LangManager langManager, final MenuManager menuManager, final PrefixHandler prefixHandler) {
+        this.langManager = langManager;
         this.menuManager = menuManager;
         this.prefixHandler = prefixHandler;
         this.prefixRepository = MilkshakeORM.getRepository(Prefix.class);
@@ -39,7 +43,7 @@ public class PrefixMenuHandler {
             if (index >= prefixCount) {
                 break;
             } else {
-                prefixMenu.setItem(slot, new PrefixItem(slot, prefixes[index], prefixHandler));
+                prefixMenu.setItem(slot, new PrefixItem(langManager, slot, prefixes[index], prefixHandler));
 
                 if ((index + 1) % 7 == 0) {
                     slot += 2;

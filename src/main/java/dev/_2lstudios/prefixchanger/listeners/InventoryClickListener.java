@@ -33,15 +33,15 @@ public class InventoryClickListener implements Listener {
 
         if (whoClicked instanceof Player) {
             final Player player = (Player) whoClicked;
-            final long lastClick = lastClicks.getOrDefault(player, 0L);
-
-            if (System.currentTimeMillis() - lastClick > 1000) {
                 final Inventory inventory = event.getClickedInventory();
                 final MenuInventory menuInventory = menuManager.get(inventory);
 
                 if (menuInventory != null) {
+                    final long lastClick = lastClicks.getOrDefault(player, 0L);
+
                     event.setCancelled(true);
 
+                    if (System.currentTimeMillis() - lastClick > 1000) {
                     final MenuItem menuItem = menuInventory.getItem(event.getSlot());
 
                     if (menuItem instanceof MenuItemClickable) {

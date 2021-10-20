@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import dev._2lstudios.prefixchanger.commands.PrefixCommand;
 import dev._2lstudios.prefixchanger.lang.LangManager;
 import dev._2lstudios.prefixchanger.listeners.InventoryClickListener;
+import dev._2lstudios.prefixchanger.listeners.PlayerQuitListener;
 import dev._2lstudios.prefixchanger.menu.MenuManager;
 import dev._2lstudios.prefixchanger.placeholderapi.PrefixChangerPlaceholder;
 import dev._2lstudios.prefixchanger.prefix.PrefixHandler;
@@ -34,8 +35,10 @@ public class PrefixChanger extends JavaPlugin {
         final MenuManager menuManager = new MenuManager();
         final PrefixHandler prefixHandler = new PrefixHandler();
         final PrefixMenuHandler prefixMenuHandler = new PrefixMenuHandler(langManager, menuManager, prefixHandler);
+        final InventoryClickListener inventoryClickListener = new InventoryClickListener(menuManager);
 
-        pluginManager.registerEvents(new InventoryClickListener(menuManager), this);
+        pluginManager.registerEvents(inventoryClickListener, this);
+        pluginManager.registerEvents(new PlayerQuitListener(inventoryClickListener), this);
 
         new PrefixChangerPlaceholder(this).register();
 

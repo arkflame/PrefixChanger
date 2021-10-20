@@ -1,0 +1,24 @@
+commands: |-
+  &aComandos de PrefixChanger:&r
+  &r/%label% create &7<name> <displayname> <material> <data>&r
+  &r/%label% edit &7<name> <displayname> <material> <data>&r
+  &r/%label% delete &7<name>&r
+  &r/%label% clear&r
+no_prefixes: "&cNo hay prefijos creados!"
+not_existent: "&cEl prefijo '%prefix%' no existe!"
+create_usage: "&c/%label% create <name> <displayname> <material> <data>"
+edit_usage: "&c/%label% edit <name> <displayname> <material> <data>"
+delete_usage: "&c/%label% delete <name>"
+no_console: "&cEste comando no se puede usar desde la consola!"
+opening_menu: "&7Abriendo menu de prefijos..."
+error: "&cOcurrio un error, contacta a un administrador!"
+permission_error: "&cPermisos insuficientes!"
+permission_prefix: "&cNo tienes permiso para usar el prefijo '%prefix%'!"
+already_exists: "&cEl prefijo ya existe!"
+created: "&aCreaste el prefijo '%prefix%'!"
+not_cleared: "&cNo hay prefijos para limpiar!"
+cleared: "&aLimpiaste todos los prefijos!"
+no_prefix: "&cNo existe un prefijo llamado '%prefix%'!"
+deleted: "&cSe elimino el prefijo '%prefix%'!"
+edited: "&aEditaste el prefijo '%prefix%'!"
+changed: "&aTu prefijo fue cambiado a '%prefix%'!"

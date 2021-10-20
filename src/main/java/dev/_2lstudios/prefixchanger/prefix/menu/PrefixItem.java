@@ -45,9 +45,9 @@ public class PrefixItem extends MenuItemClickable {
         itemMeta.setDisplayName(prefix.getDisplayName() + getItemSuffix(prefix.getName()));
 
         if (player.hasPermission("prefixchanger.prefix." + prefix.getName())) {
-            itemMeta.setLore(Arrays.asList(langManager.getMessage(player, "unlocked")));
+            itemMeta.setLore(Arrays.asList(langManager.getMessage(player, "unlocked").split("\n")));
         } else {
-            itemMeta.setLore(Arrays.asList(langManager.getMessage(player, "locked")));
+            itemMeta.setLore(Arrays.asList(langManager.getMessage(player, "locked").split("\n")));
         }
 
         itemStack.setItemMeta(itemMeta);

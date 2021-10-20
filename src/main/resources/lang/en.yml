@@ -1,0 +1,21 @@
+commands: |-
+  &aPrefixChanger commands:&r
+  &r/%label% create &7<name> <displayname> <material> <data>&r
+  &r/%label% edit &7<name> <displayname> <material> <data>&r
+  &r/%label% delete &7<name>&r
+  &r/%label% clear&r
+not_existent: "&cThe prefix does not exist!"
+create_usage: "&c/%label% create <name> <displayname> <material> <data>"
+edit_usage: "&c/%label% edit <name> <displayname> <material> <data>"
+delete_usage: "&c/%label% delete <name>"
+no_console: "&cThis command can't be used from the console!"
+opening_menu: "&7Opening prefix menu..."
+error: "&cAn error has occured, please contact an administrator!"
+permission_error: "&cInsufficent permissions!"
+already_exists: "&cThe prefix already exists!"
+created: "&aSuccessfully created the prefix '%prefix%'!"
+not_cleared: "&cThere are no prefixes to clear!"
+cleared: "&aSuccessfully cleared all prefixes!"
+no_prefix: "&cThere is no prefix with the name '%prefix%'!"
+deleted: "&cDeleted the prefix '%prefix%'!"
+edited: "&aSuccessfully edited the prefix '%prefix%'!"

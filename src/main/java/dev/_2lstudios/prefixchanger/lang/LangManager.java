@@ -26,7 +26,7 @@ public class LangManager {
         if (folder.isDirectory()) {
             for (final File file : folder.listFiles()) {
                 final Configuration config = configUtil.get(file.getPath());
-
+                
                 languages.put(file.getName().replace(".yml", ""), new Lang(config));
             }
         }
@@ -43,23 +43,23 @@ public class LangManager {
     }
 
     private Lang getLang(final String rawLocale) {
-        if (rawLocale != null && rawLocale.contains("_")) {
-            final String[] locale = rawLocale.split("_");
-            final String langCode = locale[0];
-            final String region = locale[1];
+        if (rawLocale != null) {
+            if (rawLocale.contains("_")) {
+                final String[] locale = rawLocale.split("_");
+                final String langCode = locale[0];
+                final String region = locale[1];
 
-            if (languages.containsKey(langCode + "_" + region)) {
-                return languages.get(langCode + "_" + region);
-            } else if (languages.containsKey(langCode)) {
-                return languages.get(langCode);
-            } else if (languages.containsKey(defaultLocale)) {
-                return languages.get(defaultLocale);
+                if (languages.containsKey(langCode + "_" + region)) {
+                    return languages.get(langCode + "_" + region);
+                } else if (languages.containsKey(langCode)) {
+                    return languages.get(langCode);
+                }
+            } else if (languages.containsKey(rawLocale)) {
+                return languages.get(rawLocale);
             }
-        } else if (languages.containsKey(defaultLocale)) {
-            return languages.get(defaultLocale);
         }
 
-        return null;
+        return languages.getOrDefault(defaultLocale, null);
     }
 
     public String getMessage(CommandSender sender, String key, final Placeholder... placeholders) {
@@ -67,7 +67,8 @@ public class LangManager {
         final Lang lang = getLang(rawLocale);
 
         if (lang != null) {
-            return ChatColor.translateAlternateColorCodes('&', PlaceholderAPIHook.setPlaceholders(sender, lang.getMessage(key, placeholders)));
+            return ChatColor.translateAlternateColorCodes('&',
+                    PlaceholderAPIHook.setPlaceholders(sender, lang.getMessage(key, placeholders)));
         } else {
             return ChatColor.translateAlternateColorCodes('&', "&cNo lang files had been found!");
         }

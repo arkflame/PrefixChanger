@@ -10,17 +10,24 @@ import dev._2lstudios.prefixchanger.placeholders.Placeholder;
 import dev._2lstudios.prefixchanger.placeholders.Placeholders;
 
 public class Lang {
+    private final static String NOT_FOUND_TEXT = "&c&lERROR: &cKey %key% doesn't exist in the locale config file!";
     private final Map<String, String> messages = new HashMap<>();
-    private final String notFoundMessage = "&c&lERROR: &cKey %key% doesn't exist in the locale config file!";
 
-    private void getMessages(final ConfigurationSection section) {
+    private void loadMessages(final ConfigurationSection section) {
         for (final String key : section.getKeys(false)) {
             final Object object = section.get(key);
 
             if (object instanceof ConfigurationSection) {
-                getMessages((ConfigurationSection) object);
+                loadMessages((ConfigurationSection) object);
             } else if (object instanceof String) {
-                final String fullPath = section.getCurrentPath() + "." + key;
+                final String currentPath = section.getCurrentPath();
+                final String fullPath;
+
+                if (currentPath.isEmpty()) {
+                    fullPath = key;
+                } else {
+                    fullPath = section.getCurrentPath() + "." + key;
+                }
 
                 messages.put(fullPath, (String) object);
             }
@@ -28,14 +35,14 @@ public class Lang {
     }
 
     Lang(final Configuration config) {
-        getMessages(config);
+        loadMessages(config);
     }
 
-    public String getMessage(final String key, final Placeholder ...placeholders) {
+    public String getMessage(final String key, final Placeholder... placeholders) {
         if (messages.containsKey(key)) {
             return Placeholders.replace(messages.get(key), placeholders);
         } else {
-            return Placeholders.replace(notFoundMessage, new Placeholder("%key%", key));
+            return Placeholders.replace(NOT_FOUND_TEXT, new Placeholder("%key%", key));
         }
     }
 }

@@ -39,6 +39,6 @@ public class PrefixChanger extends JavaPlugin {
 
         new PrefixChangerPlaceholder(this).register();
 
-        getCommand("prefixchanger").setExecutor(new PrefixCommand(prefixHandler, prefixMenuHandler));
+        getCommand("prefixchanger").setExecutor(new PrefixCommand(langManager, prefixHandler, prefixMenuHandler));
     }
 }

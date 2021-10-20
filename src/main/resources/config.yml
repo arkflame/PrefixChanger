@@ -1,5 +1,5 @@
 # Default language used by the plugin.
 # Language changes according to player's language.
-lang: en
+lang: "en"
 
 database_uri: "mongodb://user:pass@localhost:27017/prefixchanger"

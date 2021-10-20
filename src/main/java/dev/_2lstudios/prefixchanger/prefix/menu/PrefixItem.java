@@ -69,7 +69,7 @@ public class PrefixItem extends MenuItemClickable {
         switch (prefixHandlerResult) {
         case SUCCESS: {
             langManager.sendMessage(player, "changed", new Placeholder("%prefix%", prefixName));
-            player.playSound(player.getLocation(), Sound.valueOf("ORB_PICKUP"), 1f, 0.5f);
+            player.playSound(player.getLocation(), Sound.valueOf("ORB_PICKUP"), 1f, 0.75f);
             break;
         }
         case EXISTS: {

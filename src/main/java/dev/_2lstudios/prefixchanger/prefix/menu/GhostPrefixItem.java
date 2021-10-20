@@ -53,6 +53,6 @@ public class GhostPrefixItem extends MenuItemClickable {
         prefixPlayer.save();
 
         langManager.sendMessage(player, "ghost");
-        player.playSound(player.getLocation(), Sound.valueOf("ORB_PICKUP "), 1f, 0.5f);
+        player.playSound(player.getLocation(), Sound.valueOf("ORB_PICKUP"), 1f, 0.75f);
     }
 }

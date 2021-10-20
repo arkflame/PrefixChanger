@@ -7,6 +7,7 @@ import com.dotphin.milkshakeorm.repository.Repository;
 import com.dotphin.milkshakeorm.utils.MapFactory;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -41,5 +42,6 @@ public class ResetPrefixItem extends MenuItemClickable {
         }
 
         player.sendMessage(langManager.getMessage(player, "reset"));
+        player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
     }
 }

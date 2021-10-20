@@ -41,7 +41,7 @@ public class InventoryClickListener implements Listener {
 
                     event.setCancelled(true);
 
-                    if (System.currentTimeMillis() - lastClick > 1000) {
+                    if (System.currentTimeMillis() - lastClick > 500) {
                     final MenuItem menuItem = menuInventory.getItem(event.getSlot());
 
                     if (menuItem instanceof MenuItemClickable) {

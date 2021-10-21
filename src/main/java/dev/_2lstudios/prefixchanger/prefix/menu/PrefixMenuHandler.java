@@ -62,15 +62,15 @@ public class PrefixMenuHandler {
         }
 
         if (page - 1 > 0) {
-            prefixMenu.setItem(46, new PrefixPageItem(langManager.getMessage(player, "item_page", new Placeholder("%page%", page), new Placeholder("%max_pages%", maxPages)), this, page - 1, 46));
+            prefixMenu.setItem(45, new PrefixPageItem(langManager.getMessage(player, "item_page", new Placeholder("%page%", page), new Placeholder("%max_pages%", maxPages)), this, page - 1, 46));
         }
 
-        prefixMenu.setItem(48, new ResetPrefixItem(langManager, langManager.getMessage(player, "item_reset"), 48));
+        prefixMenu.setItem(47, new ResetPrefixItem(langManager, langManager.getMessage(player, "item_reset"), 48));
         prefixMenu.setItem(49, new MenuItemClose(langManager.getMessage(player, "item_close"), 49));
-        prefixMenu.setItem(50, new GhostPrefixItem(langManager, langManager.getMessage(player, "item_ghost"),50));
+        prefixMenu.setItem(51, new GhostPrefixItem(langManager, langManager.getMessage(player, "item_ghost"),50));
 
         if (page + 1 <= maxPages) {
-            prefixMenu.setItem(52, new PrefixPageItem(langManager.getMessage(player, "item_page", new Placeholder("%page%", page), new Placeholder("%max_pages%", maxPages)), this, page + 1, 52));
+            prefixMenu.setItem(53, new PrefixPageItem(langManager.getMessage(player, "item_page", new Placeholder("%page%", page), new Placeholder("%max_pages%", maxPages)), this, page + 1, 52));
         }
         
         menuManager.add(prefixMenu);

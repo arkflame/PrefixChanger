@@ -22,20 +22,27 @@ no_prefix: "&cNo existe un prefijo llamado '%prefix%'!"
 deleted: "&cSe elimino el prefijo '%prefix%'!"
 edited: "&aEditaste el prefijo '%prefix%'!"
 changed: "&aTu prefijo fue cambiado a '%prefix%'!"
-locked: |-
-  &r
-  &7Compralo en nuestra web!
-  &r
-  &cBLOQUEADO
-unlocked: |-
-  &r
-  &7Click para seleccionar!
-  &r
-  &aDESBLOQUEADO
+locked:
+  name: "&c%prefix_name%"
+  lore: |-
+    &7Vista previa: %prefix_displayname%
+    &r
+    &cCompralo en &barkflame.com&c!
+unlocked:
+  name: "&a%prefix_name%"
+  lore: |-
+    &7Vista previa: %prefix_displayname%
+    &r
+    &eClick para seleccionar!
+item_clear:
+  name: "&a%player_name%"
+  lore: |-
+    &7Prefijo actual: &b%prefix_name%
+    &r
+    &eClick para limpiar tu prefix!
 menu_title: "PrefixChanger - Pagina (%page%/%max_pages%)"
 item_reset: "&aReiniciar Prefix"
-item_ghost: "&aPrefix Fantasma"
 item_page: "&aPagina %page%"
 item_close: "&cCerrar"
 reset: "&aTu prefix fue reiniciado!"
-ghost: "&aActivaste el prefix 'fantasma'!"
+priority_all: "&aEditaste la prioridad de todos los prefijos!"

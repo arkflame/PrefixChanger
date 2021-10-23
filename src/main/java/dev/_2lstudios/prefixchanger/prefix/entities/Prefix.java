@@ -18,7 +18,10 @@ public class Prefix extends Entity {
     public String materialName;
 
     @Prop
-    public int data;
+    public int data = 0;
+
+    @Prop
+    public int priority = 0;
 
     public String getName() {
         return name;
@@ -50,5 +53,13 @@ public class Prefix extends Entity {
 
     public void setData(final int data) {
         this.data = data;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(final int priority) {
+        this.priority = priority;
     }
 }

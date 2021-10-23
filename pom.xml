@@ -97,7 +97,7 @@
     <dependency>
       <groupId>com.dotphin</groupId>
       <artifactId>milkshakeorm</artifactId>
-      <version>0.5-ALPHA</version>
+      <version>0.6-ALPHA</version>
     </dependency>
   </dependencies>
 </project>

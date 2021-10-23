@@ -1,5 +1,6 @@
 package dev._2lstudios.prefixchanger.menu;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +29,9 @@ public class MenuInventory {
         return removeItem(menuItem.getSlot());
     }
 
-    public MenuInventory setItem(final int slot, final MenuItem menuItem) {
+    public MenuInventory setItem(final MenuItem menuItem) {
+        final int slot = menuItem.getSlot();
+
         if (slot < inventory.getSize()) {
             items.put(slot, menuItem);
             inventory.setItem(slot, menuItem.getItemStack());
@@ -47,5 +50,9 @@ public class MenuInventory {
 
     public MenuItem getItem(final int slot) {
         return items.get(slot);
+    }
+
+    public Collection<MenuItem> getItems() {
+        return items.values();
     }
 }

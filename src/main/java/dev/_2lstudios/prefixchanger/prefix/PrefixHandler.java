@@ -1,11 +1,6 @@
 package dev._2lstudios.prefixchanger.prefix;
 
-import java.util.HashMap;
 import java.util.UUID;
-
-import com.dotphin.milkshakeorm.MilkshakeORM;
-import com.dotphin.milkshakeorm.repository.Repository;
-import com.dotphin.milkshakeorm.utils.MapFactory;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,27 +9,26 @@ import dev._2lstudios.prefixchanger.prefix.entities.Prefix;
 import dev._2lstudios.prefixchanger.prefix.entities.PrefixPlayer;
 
 public class PrefixHandler {
-    private final Repository<Prefix> prefixRepository;
-    private final Repository<PrefixPlayer> prefixPlayerRepository;
+    private final PrefixService prefixService;
+    private final PrefixPlayerService prefixPlayerService;
 
-    public PrefixHandler() {
-        this.prefixRepository = MilkshakeORM.getRepository(Prefix.class);
-        this.prefixPlayerRepository = MilkshakeORM.getRepository(PrefixPlayer.class);
+    public PrefixHandler(final PrefixService prefixService, final PrefixPlayerService prefixPlayerService) {
+        this.prefixService = prefixService;
+        this.prefixPlayerService = prefixPlayerService;
     }
 
     public PrefixHandlerResult changePrefix(final Player player, final String prefixName) {
         try {
             if (player.hasPermission("prefixchanger.prefix." + prefixName)) {
-                final Prefix prefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
+                final Prefix prefix = prefixService.getPrefix(prefixName);
 
                 if (prefix != null) {
                     final String playerName = player.getName();
                     final UUID playerUUID = player.getUniqueId();
-                    PrefixPlayer prefixPlayer = prefixPlayerRepository
-                            .findOne(MapFactory.create("uuid", playerUUID.toString()));
+                    PrefixPlayer prefixPlayer = prefixPlayerService.getByUUID(playerUUID);
 
                     if (prefixPlayer == null) {
-                        prefixPlayer = prefixPlayerRepository.findOne(MapFactory.create("name", playerName));
+                        prefixPlayer = prefixPlayerService.getByName(playerName);
                     }
 
                     if (prefixPlayer == null) {
@@ -59,63 +53,10 @@ public class PrefixHandler {
         return PrefixHandlerResult.ERROR;
     }
 
-    public PrefixHandlerResult listPrefixes(final Player player) {
-        try {
-            if (player.hasPermission("prefixchanger.list")) {
-                final Prefix[] prefixes = prefixRepository.findMany(new HashMap<>());
-
-                if (prefixes != null && prefixes.length > 0) {
-                    final StringBuilder stringBuilder = new StringBuilder("&aPrefix list:\n");
-
-                    for (final Prefix prefix : prefixes) {
-                        if (!stringBuilder.isEmpty()) {
-                            stringBuilder.append(" ");
-                        } else {
-                            stringBuilder.append("&aPrefix list:\n");
-                        }
-
-                        stringBuilder.append(prefix.getDisplayName() + "&7 (&b" + prefix.getName() + "&7) ");
-                    }
-
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringBuilder.toString()));
-                    return PrefixHandlerResult.SUCCESS;
-                } else {
-                    return PrefixHandlerResult.EXISTS;
-                }
-            } else {
-                return PrefixHandlerResult.PERMISSION;
-            }
-        } catch (final Exception exception) {
-            exception.printStackTrace();
-        }
-
-        return PrefixHandlerResult.ERROR;
-    }
-
     public PrefixHandlerResult delete(final Player player, final String prefixName) {
         try {
             if (player.hasPermission("prefixchanger.delete")) {
-                final long count = prefixRepository.deleteMany(MapFactory.create("name", prefixName));
-
-                if (count > 0) {
-                    return PrefixHandlerResult.SUCCESS;
-                } else {
-                    return PrefixHandlerResult.EXISTS;
-                }
-            } else {
-                return PrefixHandlerResult.PERMISSION;
-            }
-        } catch (final Exception exception) {
-            exception.printStackTrace();
-        }
-
-        return PrefixHandlerResult.ERROR;
-    }
-
-    public PrefixHandlerResult clear(final Player player) {
-        try {
-            if (player.hasPermission("prefixchanger.clear")) {
-                final long count = prefixRepository.deleteMany(new HashMap<>());
+                final long count = prefixService.delete(prefixName);
 
                 if (count > 0) {
                     return PrefixHandlerResult.SUCCESS;
@@ -136,16 +77,10 @@ public class PrefixHandler {
             final String materialName, final int data) {
         try {
             if (player.hasPermission("prefixchanger.create")) {
-                final Prefix foundPrefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
+                if (prefixService.getPrefix(prefixName) == null) {
+                    prefixService.create(prefixName, ChatColor.translateAlternateColorCodes('&', displayName),
+                            materialName, data);
 
-                if (foundPrefix == null) {
-                    final Prefix prefix = new Prefix();
-
-                    prefix.setName(prefixName);
-                    prefix.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
-                    prefix.setMaterialName(materialName);
-                    prefix.setData(data);
-                    prefix.save();
                     return PrefixHandlerResult.SUCCESS;
                 } else {
                     return PrefixHandlerResult.EXISTS;
@@ -164,7 +99,7 @@ public class PrefixHandler {
             final String materialName, final int data) {
         try {
             if (player.hasPermission("prefixchanger.edit")) {
-                final Prefix foundPrefix = prefixRepository.findOne(MapFactory.create("name", prefixName));
+                final Prefix foundPrefix = prefixService.getPrefix(prefixName);
 
                 if (foundPrefix != null) {
                     foundPrefix.setName(prefixName);
@@ -172,6 +107,56 @@ public class PrefixHandler {
                     foundPrefix.setMaterialName(materialName);
                     foundPrefix.setData(data);
                     foundPrefix.save();
+                    return PrefixHandlerResult.SUCCESS;
+                } else {
+                    return PrefixHandlerResult.EXISTS;
+                }
+            } else {
+                return PrefixHandlerResult.PERMISSION;
+            }
+        } catch (final Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return PrefixHandlerResult.ERROR;
+    }
+
+    public PrefixHandlerResult editPriority(final Player player, final String prefixName, final int priority) {
+        try {
+            if (player.hasPermission("prefixchanger.edit")) {
+                final Prefix foundPrefix = prefixService.getPrefix(prefixName);
+
+                if (foundPrefix != null) {
+                    foundPrefix.setPriority(priority);
+                    foundPrefix.save();
+                    return PrefixHandlerResult.SUCCESS;
+                } else {
+                    return PrefixHandlerResult.EXISTS;
+                }
+            } else {
+                return PrefixHandlerResult.PERMISSION;
+            }
+        } catch (final Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return PrefixHandlerResult.ERROR;
+    }
+
+    public PrefixHandlerResult editPriority(final Player player, final int priority) {
+        try {
+            if (player.hasPermission("prefixchanger.edit")) {
+                final Prefix[] prefixes = prefixService.getPrefixes();
+
+                if (prefixes.length > 0) {
+                    for (final Prefix prefix : prefixes) {
+
+                        if (prefix != null) {
+                            prefix.setPriority(priority);
+                            prefix.save();
+                        }
+                    }
+
                     return PrefixHandlerResult.SUCCESS;
                 } else {
                     return PrefixHandlerResult.EXISTS;

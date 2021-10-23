@@ -12,7 +12,6 @@ import org.bukkit.inventory.Inventory;
 
 import dev._2lstudios.prefixchanger.menu.MenuInventory;
 import dev._2lstudios.prefixchanger.menu.MenuItem;
-import dev._2lstudios.prefixchanger.menu.MenuItemClickable;
 import dev._2lstudios.prefixchanger.menu.MenuManager;
 
 public class InventoryClickListener implements Listener {
@@ -33,20 +32,24 @@ public class InventoryClickListener implements Listener {
 
         if (whoClicked instanceof Player) {
             final Player player = (Player) whoClicked;
-                final Inventory inventory = event.getClickedInventory();
-                final MenuInventory menuInventory = menuManager.get(inventory);
+            final Inventory inventory = event.getClickedInventory();
+            final MenuInventory menuInventory = menuManager.get(inventory);
 
-                if (menuInventory != null) {
-                    final long lastClick = lastClicks.getOrDefault(player, 0L);
+            if (menuInventory != null) {
+                final long lastClick = lastClicks.getOrDefault(player, 0L);
 
-                    event.setCancelled(true);
+                event.setCancelled(true);
 
-                    if (System.currentTimeMillis() - lastClick > 500) {
+                if (System.currentTimeMillis() - lastClick > 500) {
                     final MenuItem menuItem = menuInventory.getItem(event.getSlot());
 
-                    if (menuItem instanceof MenuItemClickable) {
-                        ((MenuItemClickable) menuItem).click(player);
+                    if (menuItem != null) {
+                        menuItem.click(player);
                         lastClicks.put(player, System.currentTimeMillis());
+
+                        for (final MenuItem menuItem1 : menuInventory.getItems()) {
+                            menuItem1.inventoryUpdate(player);
+                        }
                     }
                 }
             }

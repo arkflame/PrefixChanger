@@ -5,13 +5,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class MenuItemClose extends MenuItemClickable {
-    public MenuItemClose(final ItemStack itemStack, final int slot) {
-        super(itemStack, slot);
+public class MenuItemClose extends MenuItem {
+    public MenuItemClose(final MenuInventory menuInventory, final ItemStack itemStack, final int slot) {
+        super(menuInventory, itemStack, slot);
     }
 
-    public MenuItemClose(final String displayName, final int slot) {
-        this(new ItemStack(Material.BARRIER), slot);
+    public MenuItemClose(final MenuInventory menuInventory, final String displayName, final int slot) {
+        this(menuInventory, new ItemStack(Material.BARRIER), slot);
         
         final ItemStack itemStack = getItemStack();
         final ItemMeta itemMeta = itemStack.getItemMeta();

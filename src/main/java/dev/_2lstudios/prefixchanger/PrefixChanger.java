@@ -1,7 +1,7 @@
 package dev._2lstudios.prefixchanger;
 
-import com.dotphin.milkshakeorm.DatabaseType;
 import com.dotphin.milkshakeorm.MilkshakeORM;
+import com.dotphin.milkshakeorm.providers.Provider;
 
 import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.PluginManager;
@@ -29,9 +29,9 @@ public class PrefixChanger extends JavaPlugin {
         final Configuration config = configUtil.create("%datafolder%/config.yml", "config.yml")
                 .get("%datafolder%/config.yml");
 
-        MilkshakeORM.connect(DatabaseType.MONGODB, config.getString("database_uri"));
-        MilkshakeORM.addRepository(Prefix.class);
-        MilkshakeORM.addRepository(PrefixPlayer.class);
+        final Provider provider = MilkshakeORM.connect(config.getString("database_uri"));
+        MilkshakeORM.addRepository(Prefix.class, provider);
+        MilkshakeORM.addRepository(PrefixPlayer.class, provider);
 
         final LangManager langManager = new LangManager(configUtil, config.getString("lang"));
         final MenuManager menuManager = new MenuManager();

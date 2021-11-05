@@ -90,7 +90,7 @@ public class PrefixItem extends MenuItem {
                 break;
             }
             case PERMISSION: {
-                langManager.sendMessage(player, "permission_prefix");
+                langManager.sendMessage(player, "permission_prefix", new Placeholder("%prefix%", prefixName));
                 player.playSound(player.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1f, 0.5f);
                 break;
             }

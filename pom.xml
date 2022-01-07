@@ -95,9 +95,10 @@
     </dependency>
 
     <dependency>
-      <groupId>com.dotphin</groupId>
-      <artifactId>milkshake-orm</artifactId>
+      <groupId>dev._2lstudios</groupId>
+      <artifactId>Milkshake-Bukkit</artifactId>
       <version>0.1-BETA</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>

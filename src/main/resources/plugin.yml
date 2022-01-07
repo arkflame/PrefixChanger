@@ -4,7 +4,7 @@ author: ${author}
 main: ${mainClass}
 version: ${version}
 url: ${url}
-depend: [ PlaceholderAPI ]
+depend: [ PlaceholderAPI, Milkshake-Bukkit ]
 commands:
   prefixchanger:
     aliases: [ "prefix" ]
